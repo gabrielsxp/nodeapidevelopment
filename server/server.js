@@ -26,6 +26,14 @@ app.post('/todos', (request, response) => {
 	});	
 });
 
+app.get('/todos', (request, response) => {
+	Todo.find().then((result) => {
+		response.send({result});
+	}, (err) => {
+		response.status(400).send(err.errors.text.message);
+	});
+});
+
 app.listen(3000, () => {
 	console.log('Server is up and running at port 3000');
 });
