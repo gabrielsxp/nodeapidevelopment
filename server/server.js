@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 app.post('/todos', (request, response) => {
 	var postObject = request.body;
+	var currentLength = Todo.find()
 	let todo = new Todo({
 		text: postObject.text
 	});
@@ -27,5 +28,9 @@ app.post('/todos', (request, response) => {
 
 app.listen(3000, () => {
 	console.log('Server is up and running at port 3000');
-})
+});
+
+module.exports = {
+	app
+};
 
