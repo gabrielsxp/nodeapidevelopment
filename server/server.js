@@ -34,6 +34,22 @@ app.get('/todos', (request, response) => {
 	});
 });
 
+app.get('/todos/:id', (request, response) => {
+	var id = request.params.id;
+	if(mongoose.Types.ObjectId.isValid(id)){
+		Todo.findById(id).then((result) => {
+			if(!result){
+				return response.status(400).send();
+			}
+			response.status(200).send({result});
+		}, (err) => {
+			response.status(400).send(err.message);
+		});
+	} else {
+		response.status(400).send({message: 'Could not found any todo with this id'});
+	}
+});
+
 app.listen(3000, () => {
 	console.log('Server is up and running at port 3000');
 });
